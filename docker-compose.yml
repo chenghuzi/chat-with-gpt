@@ -1,0 +1,16 @@
+version: "3"
+services:
+  chat-with-gpt:
+    image: chenghuzi/chat-with-gpt:latest
+    container_name: chat-with-gpt
+    build:
+      context: "${PWD}"
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - "${PWD}/data:/app/data"
+      - "${PWD}/server/src:/app/src"
+    command: npm run start
+    env_file:
+      - .env

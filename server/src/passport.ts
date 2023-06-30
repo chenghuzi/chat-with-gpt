@@ -8,8 +8,11 @@ import ChatServer from './index';
 import { config } from './config';
 
 const secret = config.authSecret;
+const allowPublicUser = config.publicUser.allowed;
 
 export function configurePassport(context: ChatServer) {
+    console.log('allowPublicUser', allowPublicUser);
+
     const SQLiteStore = createSQLiteSessionStore(session);
     const sessionStore = new SQLiteStore({ db: 'sessions.db' });
 
@@ -61,6 +64,10 @@ export function configurePassport(context: ChatServer) {
     }));
 
     context.app.post('/chatapi/register', async (req, res, next) => {
+        if (!allowPublicUser) {
+            console.log('Public user registration is disabled.');
+            return res.redirect('/?error=register');
+        }
         const { username, password } = req.body;
 
         const hashedPassword = await bcrypt.hash(password, 12);
