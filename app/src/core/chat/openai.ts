@@ -4,7 +4,7 @@ import SSE from "../utils/sse";
 import { OpenAIMessage, Parameters } from "./types";
 import { backend } from "../backend";
 
-export const defaultModel = 'gpt-3.5-turbo';
+export const defaultModel = 'gpt-3.5-turbo-16k-0613';
 
 export function isProxySupported() {
     return !!backend.current?.services?.includes('openai');
@@ -141,5 +141,6 @@ export async function createStreamingChatCompletion(messages: OpenAIMessage[], p
 
 export const maxTokensByModel = {
     "chatgpt-3.5-turbo": 2048,
+    "gpt-3.5-turbo-16k-0613": 8096,
     "gpt-4": 8192,
 }

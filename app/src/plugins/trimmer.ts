@@ -20,17 +20,17 @@ export class ContextTrimmerPlugin extends Plugin<ContextTrimmerPluginOptions> {
                 {
                     id: 'maxTokens',
                     displayOnSettingsScreen: "chat",
-                    defaultValue: 2048,
+                    defaultValue: 4096,
                     scope: "chat",
                     renderProps: (value, options) => ({
                         label: `Include a maximum of ${value} tokens`,
                         type: "slider",
                         min: 512,
-                        max: maxTokensByModel[options.getOption('parameters', 'model')] || 2048,
+                        max: maxTokensByModel[options.getOption('parameters', 'model')] || 4096,
                         step: 512,
                     }),
                     validate: (value, options) => {
-                        const max = maxTokensByModel[options.getOption('parameters', 'model')] || 2048;
+                        const max = maxTokensByModel[options.getOption('parameters', 'model')] || 4096;
                         return value < max;
                     },
                     displayInQuickSettings: {
